@@ -41,6 +41,20 @@ app.get('/', (req, res) => {
   })
 })
 
+app.get('/about', (req, res) => {
+  res.render('about',{
+    layout: 'layouts/main-layouts',
+    title: 'About Page'
+  })
+})
+
+app.get('/laporan-penjualan', (req, res) => {
+  res.render('laporan-penjualan',{
+    layout: 'layouts/main-layouts',
+    title: 'Laporan Penjualan'
+  })
+})
+
 app.get('/contact',(req, res) =>{
   res.render('contact', {
     layout:'layouts/main-layouts',
