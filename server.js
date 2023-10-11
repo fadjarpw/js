@@ -20,9 +20,9 @@ app.use(expressLayouts);
 const mysql = require('mysql2')
 const connection = mysql.createConnection({
   host: 'localhost',
-  port: 2000,
+  port: 3306,
   user: 'root',
-  password: '!23System',
+  password: '!23Trioganas',
   database: 'db_pths'
 })
 
