@@ -55,7 +55,7 @@ app.get('/laporan-penjualan', (req, res) => {
 
 
 app.post('/tambahpenjualan', (req, res) => {
-  const sqlInsertPenjualan = `INSERT INTO laporan_penjualan(qty_bawa, qty_sisa, harga_jual) VALUES ('${req.body.qtybawaPenjualan}, ${req.body.qtysisaPenjualan}, ${req.body.hargajualPenjualan}');`
+  const sqlInsertPenjualan = `INSERT INTO laporan_penjualan(id_pembeli, qty_bawa, qty_sisa, harga_jual, qty_total, harga_total) VALUES ('${req.body.pembeliPenjualan}', ${req.body.qtybawaPenjualan}, ${req.body.qtysisaPenjualan}, ${req.body.hargajualPenjualan}, ${req.body.qtybawaPenjualan} - ${req.body.qtysisaPenjualan}, (${req.body.qtybawaPenjualan} - ${req.body.qtysisaPenjualan}) * ${req.body.hargajualPenjualan});`
   connection.query(sqlInsertPenjualan, (err, result) =>{
     if(err) throw err
     res.redirect('/laporan-penjualan')
