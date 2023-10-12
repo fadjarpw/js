@@ -1,8 +1,12 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const BodyParser = require('body-parser');
 const app = express();
 const port = 3500;
 
+
+//body parser
+app.use(BodyParser.urlencoded({extended: true}));
 
 //server start
 app.listen(port, () => {
@@ -31,6 +35,33 @@ connection.connect((err) =>{
   console.log('Database Connected')
 })
 
+app.get('/laporan-penjualan', (req, res) => {
+  connection.connect((err) =>{
+    if(err) throw err
+    console.log('Database Connected')
+  })
+  const sqlGetPenjualan = 'select * from laporan_penjualan'
+  connection.query(sqlGetPenjualan, (err, resultLaporanPenjualan) =>{
+    if(err) throw err
+    console.log('Hasil get penjualan -->',resultLaporanPenjualan)
+    res.render('laporan-penjualan',{
+      layout: 'layouts/main-layouts',
+      title: 'Laporan Penjualan',
+      resultLaporanPenjualan: resultLaporanPenjualan
+    })
+  })
+  
+})
+
+
+app.post('/tambahpenjualan', (req, res) => {
+  const sqlInsertPenjualan = `INSERT INTO laporan_penjualan(qty_bawa, qty_sisa, harga_jual) VALUES ('${req.body.qtybawaPenjualan}, ${req.body.qtysisaPenjualan}, ${req.body.hargajualPenjualan}');`
+  connection.query(sqlInsertPenjualan, (err, result) =>{
+    if(err) throw err
+    res.redirect('/laporan-penjualan')
+  })
+})
+
 
 //main route
 app.get('/', (req, res) => {
@@ -48,12 +79,13 @@ app.get('/about', (req, res) => {
   })
 })
 
-app.get('/laporan-penjualan', (req, res) => {
-  res.render('laporan-penjualan',{
-    layout: 'layouts/main-layouts',
-    title: 'Laporan Penjualan'
-  })
-})
+// app.get('/laporan-penjualan', (req, res) => {
+//   res.render('laporan-penjualan',{
+//     layout: 'layouts/main-layouts',
+//     title: 'Laporan Penjualan',
+//     resultLaporanPenjualan: resultLaporanPenjualan
+//   })
+// })
 
 app.get('/contact',(req, res) =>{
   res.render('contact', {

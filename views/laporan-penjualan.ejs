@@ -1,25 +1,71 @@
 <div class="container">
-    <form>
+    <form action="/tambahpenjualan" method="post">
+      <!-- <div class="mb-3">
+        <label class="form-label">Tanggal Penjualan</label>
+        <input type="datetime" class="form-control" name="tglPenjualan" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div> -->
         <div class="mb-3">
           <label class="form-label">Pembeli</label>
-          <input type="text" class="form-control" id="pembeli-penjualan" aria-describedby="emailHelp">
+          <input type="text" class="form-control" name="pembeliPenjualan" aria-describedby="emailHelp">
           <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
         </div>
         <div class="mb-3">
             <label class="form-label">QTY Bawa</label>
-            <input type="text" class="form-control" id="qtybawa-penjualan" aria-describedby="emailHelp">
+            <input type="text" class="form-control" name="qtybawaPenjualan" aria-describedby="emailHelp">
             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
           </div>
           <div class="mb-3">
             <label class="form-label">QTY Sisa</label>
-            <input type="text" class="form-control" id="qtysisa-penjualan" aria-describedby="emailHelp">
+            <input type="text" class="form-control" name="qtysisaPenjualan" aria-describedby="emailHelp">
             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
           </div>
           <div class="mb-3">
             <label class="form-label">Harga Jual</label>
-            <input type="text" class="form-control" id="hargajual-penjualan" aria-describedby="emailHelp">
+            <input type="text" class="form-control" name="hargajualPenjualan" aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">Tanpa titik, contoh 22000</div>
           </div>
+          <input type="submit" class="btn btn-primary" value="Tambahkan"></input>
       </form>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      
 </div>
+
+<div class="container">
+  <table class="table">
+    
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Pembeli</th>
+        <th scope="col">QTY Bawa</th>
+        <th scope="col">QTY Sisa</th>
+        <th scope="col">QTY Total</th>
+        <th scope="col">Harga Jual</th>
+        <th scope="col">Harga Total</th>
+        <th scope="col">Tanggal Penjualan</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+   
+        <% for( let result of resultLaporanPenjualan ) { %>
+          <tr>
+          <th scope="row">#</th>
+          <th scope="row"><%= result.id_pembeli %></th>
+          <th scope="row"><%= result.qty_bawa %></th>
+          <th scope="row"><%= result.qty_sisa %></th>
+          <th scope="row"><%= result.qty_total %></th>
+          <th scope="row">Rp <%= result.harga_jual %></th>
+          <th scope="row">Rp <%= result.harga_total %></th>
+          <th class="datepicker" scope="row"><%= result.tgl_penjualan %></th>
+        </tr>
+        <% } %>     
+   
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    $(".date").datepicker({
+      format: "dd-mm-yyyy",
+    });
+  </script>
+</div>
+
